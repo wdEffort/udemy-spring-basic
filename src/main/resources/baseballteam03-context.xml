@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="player10" class="com.udemy.springbasic.ex01di.sample09.Player">
+        <constructor-arg value="홍십번"/>
+        <constructor-arg value="28"/>
+        <constructor-arg>
+            <list>
+                <value>10번타자</value>
+                <value>유격수</value>
+            </list>
+        </constructor-arg>
+        <property name="height" value="188"/>
+        <property name="weight" value="80"/>
+    </bean>
+
+</beans>

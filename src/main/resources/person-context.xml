@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+    bean 태그의 기본 scope 설정 값은 singleton이다.
+    singleton은 스프링 컨테이너에 의해 한 개의 Bean 객체만 생성하는 것이다.
+    -->
+    <!--
+    <bean id="person" class="com.udemy.springbasic.ex03scope.sample01.Person" scope="singleton">
+        <constructor-arg value="김철수"/>
+        <constructor-arg value="20"/>
+    </bean>
+    -->
+
+    <!--
+    prototype은 Bean을 사용할 때마다 객체를 생성한다.
+    -->
+    <bean id="person" class="com.udemy.springbasic.ex03scope.sample01.Person" scope="prototype">
+        <constructor-arg value="김철수"/>
+        <constructor-arg value="20"/>
+    </bean>
+
+</beans>

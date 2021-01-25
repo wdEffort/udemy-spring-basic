@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean: 스프링 컨테이너에 담길 Bean 설정, id: 클래스 별칭, class: 실제 클래스 -->
+    <bean id="daoImpl" class="com.udemy.springbasic.ex01di.sample01.DaoImpl"/>
+
+    <bean id="getSum" class="com.udemy.springbasic.ex01di.sample02.GetSum"/>
+    <bean id="myGetSum" class="com.udemy.springbasic.ex01di.sample02.MyGetSum">
+        <!-- property: 의존성 주입 설정, name: 해당 Bean 클래스의 Setter 메소드, value: 설정할 값 -->
+        <property name="a" value="10"/>
+        <property name="b" value="20"/>
+        <!-- property: 의존성 주입 설정, name: 해당 Bean 클래스의 Setter 메소드, ref: 주입할 Bean 이름 -->
+        <property name="getSum" ref="getSum"/>
+    </bean>
+
+    <bean id="exDao" class="com.udemy.springbasic.ex01di.sample03.ExDao">
+        <!--
+        constructor-arg 태그를 사용하면 인자가 있는 생성자를 토대로 Bean 객체를 생성하고,
+        constructor-arg 태그를 사용하지 않았다면 기본 생성자를 토대로 Bean 객체를 생성한다.
+        -->
+        <constructor-arg value="Hello, Spring Framework"/>
+    </bean>
+
+    <bean id="person01" class="com.udemy.springbasic.ex01di.sample04.Person">
+        <constructor-arg>
+            <value>memberA</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>홍길동</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>남</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>30</value>
+        </constructor-arg>
+    </bean>
+    <bean id="person02" class="com.udemy.springbasic.ex01di.sample04.Person">
+        <constructor-arg value="memberB"/>
+        <constructor-arg value="홍길순"/>
+        <constructor-arg value="여"/>
+        <constructor-arg value="25"/>
+    </bean>
+    <bean id="personInfo" class="com.udemy.springbasic.ex01di.sample04.PersonInfo">
+        <!-- onstructor-arg 태그와 ref 태그를 사용하여 인자 생성자를 토대로 Bean 객체를 생성할 때 외부 Bean을 주입하며 생성한다. -->
+        <constructor-arg>
+            <ref bean="person01"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="myBatisDao" class="com.udemy.springbasic.ex01di.sample05.MyBatisDao"/>
+    <!--
+    XML의 네임스페이스(p)를 사용하여 의존성 주입 설정
+    p:프로퍼티명="값", p:프로퍼티명-ref="Bean 명칭"
+    참고 : p 네임스페이스는 property를 c 네임스페이스는 constructor-arg를 의미하며
+            생성자를 이용하여 초기화를 하느냐, property(Setter 메소드)를 이용하여 초기화를 하느냐의 차이이다.
+    -->
+    <bean id="myBatisService" class="com.udemy.springbasic.ex01di.sample05.MyBatisService" p:myBatisDao-ref="myBatisDao">
+        <!--
+        property 태그를 이용하면 Setter 메소드를 이용하여 의존성 주입을 하여 Bean 객체를 생성한다.
+        예를 들어 클래스의 특정 setXXXX() 메소드에서 "set"을 제외한 XXXX를 property 태그의 name 속성으로 사용하면
+        클래스의 setXXXX()를 호출하여 프로퍼티(클래스의 멤버변수[Field])에 의존성 주입이 일어난다.
+        이러한 방식을 프로퍼티 설정 방식이라고 한다.
+        단, XML의 네임스페이스 방식을 이용하면 property 태그를 사용하지 않고 축약해서 사용할 수 있다.
+        <property name="myBatisDao" ref="myBatisDao"/>
+        -->
+    </bean>
+
+    <!-- 설정 파일 수정만으로 실제로 사용할 Bean 객체를 변경할 수 있다.(DI의 장점(?)) -->
+    <!--    <bean id="car" class="com.udemy.springbasic.ex01di.sample06.HyundaiCar"/>-->
+    <bean id="car" class="com.udemy.springbasic.ex01di.sample06.DaewooCar"/>
+    <!--    <bean id="car" class="com.udemy.springbasic.ex01di.sample06.KiaCar"/>-->
+
+    <!-- Bean 생성 시 constructor-arg 태그와 property 태그를 혼용하여 생성할 수 있다. -->
+    <bean id="player01" class="com.udemy.springbasic.ex01di.sample07.Player">
+        <constructor-arg value="이현우"/>
+        <constructor-arg value="28"/>
+        <!-- <list> 태그를 사용하여 ArrayList<String> 타입에 값을 주입한다. -->
+        <constructor-arg>
+            <list>
+                <value>4번</value>
+                <value>1루수</value>
+            </list>
+        </constructor-arg>
+        <property name="height">
+            <value>170.3</value>
+        </property>
+        <property name="weight" value="80.5"/>
+    </bean>
+    <bean id="player02" class="com.udemy.springbasic.ex01di.sample07.Player">
+        <constructor-arg value="김철수"/>
+        <constructor-arg value="35"/>
+        <constructor-arg>
+            <list>
+                <value>13번</value>
+                <value>3루수</value>
+            </list>
+        </constructor-arg>
+        <property name="height">
+            <value>185.3</value>
+        </property>
+        <property name="weight" value="96.5"/>
+    </bean>
+    <bean id="playerInfo" class="com.udemy.springbasic.ex01di.sample07.PlayerInfo">
+        <property name="player">
+            <ref bean="player01"/>
+        </property>
+    </bean>
+</beans>

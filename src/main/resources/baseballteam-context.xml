@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--
+    XML 설정 파일에서 아래와 같은 네임스페이스를 설정하면 constructor-arg 태그와 property 태그를 축약하여 사용할 수 있다.
+    xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:p="http://www.springframework.org/schema/p"
+    -->
+    <bean id="baseBallTeam"
+          class="com.udemy.springbasic.ex01di.sample07.BaseBallTeam"
+          c:manger="김응용" c:battingCoach="이순철" c:pitchingCoach="선동엽"
+          p:hitter="강정호">
+        <property name="pitcher">
+            <value>류현진</value>
+        </property>
+    </bean>
+</beans>
