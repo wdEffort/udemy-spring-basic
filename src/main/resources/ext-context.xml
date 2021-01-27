@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--
+    XML 설정 파일에서 외부 properties 파일을 불러오기 위해서는 context:property-placeholder 태그를 사용해야 한다.
+    여러 개의 외부 properties 파일을 사용할 때에는 꼭 파일명 앞에 "classpath:"를 명시해 주어야 한다.
+    -->
+    <context:property-placeholder location="classpath:env.properties, classpath:external.properties"/>
+
+    <bean id="ext" class="com.udemy.springbasic.ex05environment.sample02.ExternalFileEx">
+        <property name="id">
+            <value>${env.id}</value>
+        </property>
+        <property name="pw">
+            <value>${env.pw}</value>
+        </property>
+        <property name="extId" value="${ext.id}"/>
+        <property name="extPw" value="${ext.pw}"/>
+    </bean>
+
+</beans>
