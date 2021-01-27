@@ -210,4 +210,17 @@
             </beans>
             ```
 3. Java 설정 파일에 외부 properties 파일을 명시하는 방법
-    - Java 설정 파일에서 외부 properties 파일을 불러오기 위해서는 `PropertySourcesPlaceholderConfigurer` 객체를 생성한 후 외부 properties 파일을 등록해 주어야 한다.
+    - Java 설정 파일에서 외부 properties 파일을 불러오기 위해서는 `PropertySourcesPlaceholderConfigurer` 객체를 생성한 후 외부 properties 파일을 등록해
+      주어야 한다.
+
+---
+
+## Profile 속성을 이용한 Bean 설정
+
+#### 예제 : package com.udemy.springbasic.ex06profile
+
+1. 개발 환경과 운영 환경에서의 설정을 분리하고 싶을 때
+    - XML 설정 파일을 이용한 개발 환경, 운영 환경에서의 설정 분리
+        1) XML 설정에서 `profile="development"`와 같이 속성을 설정한다.
+    - Java 설정 파일을 이용한 개발 환경, 운영 환경에서의 설정 분리
+        1) Java 설정에서 `@Profile("development")`와 같이 어노테이션을 사용한다.
