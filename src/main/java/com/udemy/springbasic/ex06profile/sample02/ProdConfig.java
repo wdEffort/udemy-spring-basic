@@ -1,12 +1,13 @@
 package com.udemy.springbasic.ex06profile.sample02;
 
-import com.udemy.springbasic.ex06profile.sample01.ProfileEx;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
 @Profile("production") // Profile 속성을 사용하여 개발 환경과 운영 환경에서의 설정을 분리한다.
+@Import({JndiDataConfig.class, StandaloneDataConfig.class})
 public class ProdConfig {
 
     /**
@@ -15,10 +16,11 @@ public class ProdConfig {
      * @return
      */
     @Bean
-    public ProfileEx profileEx() {
+    public ProfileEx profileEx(Person person) {
         ProfileEx prof = new ProfileEx();
         prof.setIp("210.95.68.122");
         prof.setPort("80");
+        prof.setPerson(person);
 
         return prof;
     }

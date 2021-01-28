@@ -224,3 +224,96 @@
         1) XML 설정에서 `profile="development"`와 같이 속성을 설정한다.
     - Java 설정 파일을 이용한 개발 환경, 운영 환경에서의 설정 분리
         1) Java 설정에서 `@Profile("development")`와 같이 어노테이션을 사용한다.
+
+---
+
+## IoC(Inversion of Control, 제어의 역전)란?
+
+1. IoC란 프로그램의 제어 흐름 구조가 바뀌는 것을 뜻한다.
+    - 일반적인 프로그램의 흐름 구조는 main()과 같은 프로그램이 시작되는 지점에서 사용할 객체(Object)를 결정 및 생성하고, 생성된 객체의 메소드를 호출하는 작업을 반복한다. 즉, 모든 종류의 작업을
+      사용하는 쪽에서 제어하는 구조다.
+    - IoC는 제어 흐름의 개념을 거꾸로 뒤집는 개념이다. 객체는 자신이 사용할 객체를 스스로 생성하거나 선택하지 않는다. 즉, 모든 제어 권한을 자신이 아닌 다른 대상에게 위임한다.
+        1) 프로그램의 시작을 담당하는 main()과 같은 `엔트리 포인트`를 제외하면 모든 객체는 제어 권한을 위임받은 특별한 객체에 의해 결정되고 만들어 진다.
+        2) 객체는 자신이 어떻게 생성되고 어떻게 사용되는지 알 수 없다.
+2. IoC 구현 방법
+    - DL(Dependency Lookup, 의존성 검색) : 저장소에 저장되어 있는 Bean에 접근하기 위해서 개발자들이 컨테이너에서 제공하는 API를 이용하여 Bean을 Lookup하는 것.
+    - DI(Dependency Injection, 의존성 주입) : DL을 사용할 때에는 컨테이너에 대한 종속성이 증가하기 때문에 이러한 종속성을 줄이기 위해 DI를 사용한다. 각 계층 사이, 각 객체(클래스)
+      사이의 필요로 하는 의존 관계를 컨테이너가 자동으로 연결해 주는 것.
+        1) 각 클래스 사이의 의존 관계를 Bean 설정(Bean Definition) 정보를 바탕으로 컨테이너가 자동으로 연결해 주는 것
+            - Setter Injection
+            - Constructor Injection
+3. IoC 용어 정리
+    - Bean : 스프링에서 제어권을 가지고 직접 만들고 관계를 부여하는 객체(Object)
+        1) Java Bean, EJB의 Bean과 비슷한 객체(Object) 단위의 어플리케이션 컴포넌트를 의미.
+        2) 스프링 Bean은 스프링 컨테이너가 생성, 관계 설정, 사용 등을 제어해주는 객체를 가리킨다.
+    - Bean Factory : 스프링 IoC를 담당하는 핵심 컨테이너
+        1) Bean을 등록, 생성, 조회, 반환, 관리한다.
+        2) Bean Factory를 바로 사용하지 않고 이를 확장한 Application Context를 이용한다.
+        3) BeanFactory는 Bean Factory가 구현하는 인터페이스이다.
+            - getBean() 메소드 정의
+    - Application Context : Bean Factory를 확장한 IoC 컨테이너
+        1) Bean 등록, 생성, 조회, 반환, 관리 기능과 함께 스프링의 각종 부가 서비스를 추가로 제공한다.
+        2) ApplicationContext는 인터페이스이며 BeanFactory를 상속한다.
+    - Configuration Metadata : 설정 정보(설정 메타 정보)
+        1) Application Context 혹은 Bean Factory가 IoC를 적용하기 위해 사용하는 메타 정보
+        2) 스프링의 설정 정보는 컨테이너에 어떤 기능을 설정하거나 조정하는 경우에 사용되기도 하고, 주로 Bean을 생성, 구성하는 용도로 사용된다.
+    - Container(IoC Container) : IoC 방식으로 Bean을 관리한다는 의미에서 Bean Factory나 Application Context를 가리킨다.
+        1) Spring Container == Application Context
+        2) Application Context는 그 자체로는 ApplicationContext 인터페이스를 구현한 객체(Object)를 의미한다.
+        3) 하나의 어플리케이션에서는 보통 여러 개의 ApplicationContext 객체(Object)가 만들어지며, 이를 통칭해서 Spring Container라고 부른다.
+        4) 즉, 객체를 관리하는 컨테이너이다.
+    - Spring Framework : IoC Container, Application Context를 포함해서 스프링에서 제공하는 모든 기능을 통칭한다.
+
+---
+
+## AOP(Aspect Oriented Programming, 관점 지향 프로그래밍)
+
+1. 기존 OOP를 보완한 개념이다.
+    - 핵심 관심 사항과 공통 관심 사항을 분리하여 구현한다.
+        1) 핵심 관심 사항(Primary(또는 Core) concern) : 비즈니스 로직 = 주 업무
+            - 단, 비즈니스 로직은 Primary + Cross-cutting도 될 수 있다.
+        2) 횡단(공통) 관심 사항(Cross-cutting concern) : 부가 기능 = 보조 업무
+2. AOP는 Primary concern과 Cross-cutting concern을 별도의 코드로 분리하여 구현하고 최종적으로 이 둘을 조합해서 완성한다.
+3. 주요 용어
+    - Code : Primary concern을 구현한 코드
+    - Target : Primary concern이 구현된 객체
+    - Advice : Cross-cutting concern을 구현한 코드
+    - JointPoint : Code와 Advice를 연결해 주는 설정 정보, Advice가 적용 가능한 지점(메소드 호출, 필드값 변경)
+    - Point-cut : JointPoint의 부분집합으로서 실제 Advice가 적용되는 JointPoint(JointPoint의 한 부분)
+    - Weaving : Code와 Advice, Point-cut 등을 조합해서 어플리케이션을 만들어가는 과정
+4. 스프링은 자체적인 프록시(Proxy) 기반의 AOP를 지원한다.
+    - 필드값 변경과 같은 JointPoint를 사용할 수 없다.
+    - 메소드 호출 JointPoint만 지원한다.
+5. 스프링 AOP는 완전한 AOP를 지원하는 것이 목적이 아니라 엔터프라이즈 어플리케이션을 구현하는데 필요한 정도의 기능을 제공한다.
+
+---
+
+## AOP의 Aspect
+
+1. AOP의 Aspect는 `Advice + Point-cut`을 지칭하는 단어이다.
+
+## AOP 구현 방법
+
+1. 설정 파일을 이용하는 방법
+    - XML 설정 파일을 이용하는 방법
+        1) pom.xml 파일을 이용한 의존 설정
+            ```xml
+           <!-- AOP -->
+           <dependency>
+               <groupId>org.aspectj</groupId>
+               <artifactId>aspectjweaver</artifactId>
+               <version>1.9.5</version>
+           </dependency>
+            ```
+        2) 공통기능 클래스 제작(Advice 역할의 클래스)
+        3) XML 설정 파일에서 Aspect 설정
+    - XML 설정 파일에서 AOP Advice 종류
+        1) `<aop:before>` : 핵심 기능이 실행되기 전에 Advice를 실행
+        2) `<aop:after-returning>` : 정상적으로 핵심 기능이 실행된 후 Advice를 실행
+        3) `<aop:after-throwing>` : 핵심 기능 실행 중 Exception이 발생하면 Advice를 실행
+        4) `<aop:after>` : 핵심 기능 실행 후에 Advice를 실행(Exception이 발생하더라도 ...)
+        5) `<aop:arrond>` : 핵심 기능 실행 전/후 및 Exception 발생시에도 Advice를 실행
+2. 어노테이션을 이용하는 방법
+    - @AspectJ 어노테이션을 이용하는 방법
+3. 스프링에서 AOP 구현 방법은 프록시(Proxy)를 이용한다.
+    - Client(호출부) ------> Proxy(대리인/대행) ------> Target(핵심기능)

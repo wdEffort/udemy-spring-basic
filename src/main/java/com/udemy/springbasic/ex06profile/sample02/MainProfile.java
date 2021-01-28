@@ -1,8 +1,6 @@
 package com.udemy.springbasic.ex06profile.sample02;
 
-import com.udemy.springbasic.ex06profile.sample01.ProfileEx;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.util.Scanner;
 
@@ -32,6 +30,7 @@ public class MainProfile {
 
         System.out.println("ip : " + prof.getIp());
         System.out.println("port : " + prof.getPort());
+        System.out.println("person : " + prof.getPerson().toString());
 
         ctx.close();
     }
