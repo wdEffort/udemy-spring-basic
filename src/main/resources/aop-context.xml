@@ -25,7 +25,7 @@
             <aop:pointcut id="pcMethod" expression="within(com.udemy.springbasic.ex07aop.sample01.*)"/>
             <!--
             pointcut 속성 : 참조할 Point-cut 지정
-            method 속성 : 공통 관심 사항 설정
+            method 속성 : 공통 관심 사항 설정(= AdviceLog의 메소드)
             -->
             <aop:around pointcut-ref="pcMethod" method="profile"/>
         </aop:aspect>
