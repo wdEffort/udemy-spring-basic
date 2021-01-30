@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- AOP를 사용하기 위해서 공통 기능을 구현한 AdivceLog 클래스를 Bean으로 등록 -->
+    <bean id="adviceLog" class="com.udemy.springbasic.ex07aop.sample03.AdviceLog"/>
+
+    <!-- aop:around -->
+    <aop:config>
+        <!--
+        "adviceLog" Bean을 참조하는 "prof" Aspect 설정
+        Aspect는 Advice + Point-cut이다.
+         -->
+        <aop:aspect id="prof" ref="adviceLog">
+            <!--
+            sid 속성 : Point-cut의 별칭
+            expression 속성 : 핵심 기능 영역을 지정
+            - within(com.udemy.springbasic.ex07aop.sample01.*) : 해당 패키지 내 존재하는 모든 클래스의 메소드들을 Point-cut으로 지정하겠다라는 의미
+            -->
+            <aop:pointcut id="pcMethod" expression="within(com.udemy.springbasic.ex07aop.sample03.*)"/>
+            <!--
+            pointcut 속성 : 참조할 Point-cut 지정
+            method 속성 : 공통 관심 사항 설정(= AdviceLog의 메소드)
+            -->
+            <aop:around pointcut-ref="pcMethod" method="profile"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!-- aop:before -->
+    <aop:config>
+        <aop:aspect id="prof" ref="adviceLog">
+            <aop:pointcut id="pcMethod" expression="within(com.udemy.springbasic.ex07aop.sample03.*)"/>
+            <aop:before pointcut-ref="pcMethod" method="beforeAdvice"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!-- aop:after-returning -->
+    <aop:config>
+        <aop:aspect id="prof" ref="adviceLog">
+            <aop:pointcut id="pcMethod" expression="within(com.udemy.springbasic.ex07aop.sample03.*)"/>
+            <aop:after-returning pointcut-ref="pcMethod" method="afterReturningAdvice"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!-- aop:after-throwing -->
+    <aop:config>
+        <aop:aspect id="prof" ref="adviceLog">
+            <aop:pointcut id="pcMethod" expression="within(com.udemy.springbasic.ex07aop.sample03.*)"/>
+            <aop:after-throwing pointcut-ref="pcMethod" method="afterThrowingAdvice"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!-- aop:after -->
+    <aop:config>
+        <aop:aspect id="prof" ref="adviceLog">
+            <!--
+            위에서 처럼 aop:pointcut 태그를 사용하지 않고 Advice와 Point-cut을 한번에 설정할 수도 있다.
+            또한 AspectJ 표현식(Expression)으로 withwin이 아니라 execution을 사용해서도 표현이 가능하다.
+             -->
+            <aop:after method="afterAdvice" pointcut="execution(* com.udemy.springbasic.ex07aop.sample03.*.*())"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="student" class="com.udemy.springbasic.ex07aop.sample03.Student">
+        <property name="name" value="김말숙"/>
+        <property name="age" value="17"/>
+        <property name="hakbun" value="2011123123"/>
+        <property name="grade" value="1학년"/>
+    </bean>
+
+    <bean id="staff" class="com.udemy.springbasic.ex07aop.sample03.Staff">
+        <property name="name" value="김말동"/>
+        <property name="age" value="26"/>
+        <property name="dept" value="영업부"/>
+    </bean>
+
+</beans>

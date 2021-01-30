@@ -317,3 +317,30 @@
     - @AspectJ 어노테이션을 이용하는 방법
 3. 스프링에서 AOP 구현 방법은 프록시(Proxy)를 이용한다.
     - Client(호출부) ------> Proxy(대리인/대행) ------> Target(핵심기능)
+
+---
+
+## AOP AspectJ Point-cut 표현식(Expression)]
+
+1. Point-cut을 지정할 때 사용하는 표현식으로 AspectJ 문법을 사용한다.
+    - \* : 모든
+    - . : 현재
+    - .. : 0개 이상
+2. within
+    - expression="within(com.udemy.springbasic.ex07aop.sample01.\*)" : com.udemy.springbasic.ex07aop.sample01 패키지 안에 있는
+      모든 메소드
+    - expression="within(com.udemy.springbasic.ex07aop.sample01..\*)" : com.udemy.springbasic.ex07aop.sample01 패키지 및 하위
+      패키지 안에 있는 모든 메소드
+    - expression="within(com.udemy.springbasic.ex07aop.sample01.Student)" :
+      com.udemy.springbasic.ex07aop.sample01.Student 클래스 안에 있는 모든 메소드
+3. execution
+    - expression="execution(public void get\*(..))" : public void인 이름이 get으로 시작하는 모든 메소드(인자가 0개 또는 그 이상)
+    - expression="execution(* com.udemy.springbasic.ex07aop.\*.\*())" : com.udemy.springbasic.ex07aop 패키지의 파라미터가 없는 모든
+      메소드(맨 앞에 \*이 붙여지면 접근 제한자(public, default, protected, private)를 상관하지 않겠다는 의미이다.)
+    - expression="execution(* com.udemy.springbasic.ex07aop..\*.\*())" : com.udemy.springbasic.ex07aop 패키지 및 하위 패키지 안에
+      있는 파라미터가 없는 모든 메소드
+    - expression="execution(* com.udemy.springbasic.ex07aop.sample01.Student.*())" :
+      com.udemy.springbasic.ex07aop.sample01.Student 클래스 안에 있는 파라미터가 없는 모든 메소드
+4. (참고) bean
+    - bean(student) : student Bean에만 적용
+    - bean(*er) : ~er로 끝나는 Bean에만 적용
