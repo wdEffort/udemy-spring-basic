@@ -14,7 +14,8 @@ public class AdviceLog {
      * within 또는 execution을 사용하여 Advice를 적용할 대상을 설정한다.
      */
     //@Pointcut("within(com.udemy.springbasic.ex07aop.sample04.*)") // Point-cut 지정
-    @Pointcut("execution(* com.udemy.springbasic.ex07aop.sample04.*.*())")
+    //@Pointcut("execution(* com.udemy.springbasic.ex07aop.sample04.*.*())")
+    @Pointcut("bean(student)") // "student" 이름의 Bean에만 Point-cut을 적용시키겠다는 의미
     private void pointcutMethod() {
     }
 
