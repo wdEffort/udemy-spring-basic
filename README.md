@@ -268,6 +268,8 @@
 
 ## AOP(Aspect Oriented Programming, 관점 지향 프로그래밍)
 
+#### 예제 : package com.udemy.springbasic.ex07aop.sample01
+
 1. 기존 OOP를 보완한 개념이다.
     - 핵심 관심 사항과 공통 관심 사항을 분리하여 구현한다.
         1) 핵심 관심 사항(Primary(또는 Core) concern) : 비즈니스 로직 = 주 업무
@@ -293,6 +295,8 @@
 1. AOP의 Aspect는 `Advice + Point-cut`을 지칭하는 단어이다.
 
 ## AOP 구현 방법
+
+#### 예제 : package com.udemy.springbasic.ex07aop.sample02
 
 1. 설정 파일을 이용하는 방법
     - XML 설정 파일을 이용하는 방법
@@ -322,6 +326,8 @@
 
 ## AOP AspectJ Point-cut 표현식(Expression)]
 
+#### 예제 : package com.udemy.springbasic.ex07aop.sample03
+
 1. Point-cut을 지정할 때 사용하는 표현식으로 AspectJ 문법을 사용한다.
     - \* : 모든
     - . : 현재
@@ -344,3 +350,16 @@
 4. (참고) bean
     - bean(student) : student Bean에만 적용
     - bean(*er) : ~er로 끝나는 Bean에만 적용
+
+---
+
+## @Aspect 어노테이션을 이용한 AOP 구현
+
+#### 예제 : package com.udemy.springbasic.ex07aop.sample04
+
+1. 의존성 설정(pom.xml)
+2. @Aspect 어노테이션을 이용한 Aspect 클래스를 제작
+    - @Pointcut 어노테이션을 사용하여 Point-cut 지정한다.
+    - @Around, @Before, @AfterReturning @AfterThrowing, @After 어노테이션을 이용하여 각 타입별 Advice를 지정한다.
+3. XML 설정 파일에 `<aop:aspectj-autoproxy/>` 태그 설정
+    - 프록시(Proxy)를 @Aspect 어노테이션이 설정된 클래스에서 해주겠다라는 의미이다.
