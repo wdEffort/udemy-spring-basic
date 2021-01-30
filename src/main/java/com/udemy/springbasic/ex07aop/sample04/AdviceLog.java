@@ -1,6 +1,5 @@
 package com.udemy.springbasic.ex07aop.sample04;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 
@@ -14,7 +13,8 @@ public class AdviceLog {
      * "@Pointcut" 어노테이션을 이용하여 Point-cut 설정
      * within 또는 execution을 사용하여 Advice를 적용할 대상을 설정한다.
      */
-    @Pointcut("within(com.udemy.springbasic.ex07aop.sample04.*)") // Point-cut 지정
+    //@Pointcut("within(com.udemy.springbasic.ex07aop.sample04.*)") // Point-cut 지정
+    @Pointcut("execution(* com.udemy.springbasic.ex07aop.sample04.*.*())")
     private void pointcutMethod() {
     }
 
@@ -50,7 +50,8 @@ public class AdviceLog {
     /**
      * 핵심 기능이 실행되기 전에 Advice를 실행
      */
-    @Before("within(com.udemy.springbasic.ex07aop.sample04.*)")
+    //@Before("within(com.udemy.springbasic.ex07aop.sample04.*)")
+    @Before("pointcutMethod()")
     public void beforeAdvice() {
 
         System.out.println("beforeAdvice() ...");
@@ -59,7 +60,8 @@ public class AdviceLog {
     /**
      * 정상적으로 핵심 기능이 실행된 후 Advice를 실행
      */
-    @AfterReturning("within(com.udemy.springbasic.ex07aop.sample04.*)")
+    //@AfterReturning("within(com.udemy.springbasic.ex07aop.sample04.*)")
+    @AfterReturning("pointcutMethod()")
     public void afterReturningAdvice() {
         System.out.println("afterReturningAdvice() ...");
     }
@@ -67,7 +69,8 @@ public class AdviceLog {
     /**
      * 핵심 기능 실행 중 Exception이 발생하면 Advice를 실행
      */
-    @AfterThrowing("within(com.udemy.springbasic.ex07aop.sample04.*)")
+    //@AfterThrowing("within(com.udemy.springbasic.ex07aop.sample04.*)")
+    @AfterThrowing("pointcutMethod()")
     public void afterThrowingAdvice() {
         System.out.println("afterThrowingAdvice() ...");
     }
@@ -75,7 +78,8 @@ public class AdviceLog {
     /**
      * 핵심 기능 실행 후에 Advice를 실행(Exception이 발생하더라도 ...)
      */
-    @After("within(com.udemy.springbasic.ex07aop.sample04.*)")
+    //@After("within(com.udemy.springbasic.ex07aop.sample04.*)")
+    @After("pointcutMethod()")
     public void afterAdvice() {
         System.out.println("afterAdvice() ...");
     }
